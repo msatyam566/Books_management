@@ -17,3 +17,18 @@ exports.approveBook = async (req, res) => {
     res.status(500).json({ message: 'Error updating book status', error });
   }
 };
+
+
+exports.getActivityLogs = async (req, res) => {
+  try {
+      const [logs] = await pool.query(
+          'SELECT * FROM activity_logs WHERE userId = ? ORDER BY timestamp DESC',
+          [req.user.id]
+      );
+
+      res.status(200).json({ logs });
+  } catch (error) {
+      console.error('Error fetching activity logs:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};

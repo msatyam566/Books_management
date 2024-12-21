@@ -1,6 +1,7 @@
 const pool = require('../../config/db');
 const  sendEmail  = require('../../config/email');
 const config = require("../../config/keys");
+const logActivity = require('../../functions/activityLogger');
 
 exports.purchaseBook = async (req, res) => {
   const { bookId } = req.body;
@@ -24,6 +25,8 @@ exports.purchaseBook = async (req, res) => {
     const bookDetails = book[0]
 
     await sendEmail(config.superAdmin.adminEmail, ' Purchase details of books that sold', `Book Title: ${bookDetails.title}`);
+    await logActivity(req.user.id, `Purchased book with ID: ${sendBookId}`);
+
 
     res.status(201).json({ message: 'Book purchased successfully',result });
   } catch (error) {
@@ -45,3 +48,6 @@ exports.getBooksUser = async (req, res) => {
       res.status(500).json({ message: 'Error fetching approved books', error });
     }
   };
+
+
+
