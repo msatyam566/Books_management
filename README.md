@@ -88,8 +88,10 @@ Here are some of the basic API endpoints available:
 - **POST /api/auth/login**: Log in to the application and receive JWT tokens.
 - **POST /api/books/create**: Create a new book entry.
 - **POST /api/books/purchase**: Purchase a book.
-- **POST /api/auth/reset-password**: Request a password reset email.
+- **POST /api/auth/forgot-password**: Request a password reset email.
 - **POST /api/auth/reset-password/:token**: Reset the password using the reset token.
+-  **POST /api/auth/superadmin/activity**: logs the activity of user
+
 
 ## Environment Variables
 
